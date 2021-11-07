@@ -54,7 +54,7 @@ const Right = styled.div`
     flex:1;
     display:flex;
     align-items: center;
-    jsutify-content: flex-end;
+    justify-content: flex-end;
 `;
 const MenuItem = styled.div`
     font-size: 14px;
@@ -70,6 +70,8 @@ const Navbar = () => {
     return (
         <Container>
             <Wrapper>
+
+
                 <Left>
                     <Language>EN</Language>
                     <SearchContainer>
@@ -77,9 +79,11 @@ const Navbar = () => {
                         <Search style={{color:"grey",fontSize:16}}/>
                     </SearchContainer>
                 </Left>
+                
                 <Center>
                     <Logo>My Soul Tonic</Logo>
                 </Center>
+                
                 <Right>
 
                     <MenuItem>Register</MenuItem>
@@ -91,6 +95,8 @@ const Navbar = () => {
                     </MenuItem>
 
                 </Right>
+
+
             </Wrapper>
         </Container>
     )
