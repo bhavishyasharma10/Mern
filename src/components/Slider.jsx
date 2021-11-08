@@ -10,6 +10,7 @@ const Container = styled.div`
   position: relative;
   overflow: hidden;
 `;
+
 const Arrow = styled.div`
     width: 50px;
     height: 50px;
@@ -48,9 +49,9 @@ const ImageContainer = styled.div`
     flex: 1;
 `;
 const Image = styled.img`
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+    width:100%;
+    height:100%;
+    object-fit:cover;
 `;
 
 const InfoContainer = styled.div`
@@ -60,6 +61,7 @@ const InfoContainer = styled.div`
 const Title = styled.h1`
     font-size: 70px;
 `;
+
 const Desc = styled.p`
     margin: 50px 0px;
     font-size: 20px;
