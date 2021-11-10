@@ -2,10 +2,12 @@ import { Facebook, Instagram, Pinterest, Twitter } from "@material-ui/icons";
 import { MailOutline, Phone, Room } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
   background-color: #ecf8fb;
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const Left = styled.div`
@@ -13,11 +15,15 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
+  ${mobile({ fontSize: "4em" })}
 `;
 
-const Logo = styled.h1``;
+const Logo = styled.h1`
+  ${mobile({ fontSize: "40%" })}
+`;
 const Desc = styled.p`
   margin: 20px 0px;
+  ${mobile({ fontSize: "20%" })}
 `;
 const SocialContainer = styled.div`
   display: flex;
@@ -33,14 +39,17 @@ const SocialIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 20px;
+  ${mobile({ width: "23px", height: "23px" })}
 `;
 
 const Center = styled.div`
   flex: 1;
   padding: 20px;
+  ${mobile({ display: "none" })}
 `;
 const Title = styled.h3`
   margin-bottom: 30px;
+  ${mobile({ fontSize: "40%", marginBottom: "20px" })}
 `;
 const List = styled.ul`
   margin: 0;
@@ -57,15 +66,18 @@ const ListItem = styled.li`
 const Right = styled.div`
   flex: 1;
   padding: 20px;
+  ${mobile({ backgroundColor: "#e8e5eb", fontSize: "4em" })}
 `;
 const ContactItem = styled.div`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  ${mobile({ fontSize: "20%", marginBottom: "10px" })}
 `;
 
 const Payment = styled.img`
   width: 50%;
+  ${mobile({ width: "60%" })}
 `;
 const Footer = () => {
   return (
