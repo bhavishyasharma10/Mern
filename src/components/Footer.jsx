@@ -39,7 +39,7 @@ const SocialIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 20px;
-  ${mobile({ width: "23px", height: "23px" })}
+  ${mobile({ width: "26px", height: "26px" })}
 `;
 
 const Center = styled.div`
@@ -77,7 +77,6 @@ const ContactItem = styled.div`
 
 const Payment = styled.img`
   width: 50%;
-  ${mobile({ width: "60%" })}
 `;
 const Footer = () => {
   return (
