@@ -1,7 +1,7 @@
 export const sliderItems = [
   {
     id: 1,
-    img: "https://images.pexels.com/photos/5947552/pexels-photo-5947552.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    img: "https://drive.google.com/uc?export=view&id=1Br2cncEcwPpeeLsdbxlZVSMsrjDSZ4sZ",
 
     title: "SUMMER SALE",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
@@ -9,14 +9,16 @@ export const sliderItems = [
   },
   {
     id: 2,
-    img: "https://images.pexels.com/photos/5947552/pexels-photo-5947552.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    img: "https://drive.google.com/uc?export=view&id=1IWY-Mr1bMna_mOMNxQ58HFanAy_rRkyQ",
+
     title: "AUTUMN COLLECTION",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "adc3d0",
   },
   {
     id: 3,
-    img: "https://images.pexels.com/photos/5947552/pexels-photo-5947552.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    img: "https://drive.google.com/uc?export=view&id=1I58NFrKcS1ZvqHzF4DSjgwspPucWMZa1",
+
     title: "LOUNGEWEAR LOVE",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "fbf0f4",
@@ -25,18 +27,19 @@ export const sliderItems = [
 export const categories = [
   {
     id: 1,
-    img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    title: "SHIRT STYLE!",
+    img: "https://drive.google.com/uc?export=view&id=1IE8VadKn18KBwlhvQg4pSv697lDPFvgO",
+    title: "CLUTCH BAGS",
   },
   {
     id: 2,
-    img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    title: "LOUNGEWEAR LOVE",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    title: "EARRINGS",
   },
   {
     id: 3,
-    img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    title: "LIGHT JACKETS",
+    img: "https://drive.google.com/uc?export=view&id=1IWwq5a5B6xMrxwySD-tNfB8GNNwmk8eR",
+
+    title: "LONG JACKETS",
   },
 ];
 

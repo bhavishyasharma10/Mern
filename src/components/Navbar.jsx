@@ -54,8 +54,10 @@ const Center = styled.div`
 `;
 const Logo = styled.h1`
   font-weight: bold;
-  font-size: 1.25em;
-  ${mobile({ width: "100%", fontSize: "80%" })}
+  font-size: 1.5em;
+  font-family: "Tangerine";
+  text-shadow: 4px 4px 4px #aaa;
+  ${mobile({ width: "100", fontSize: "0.90em" })};
 `;
 
 //Right Side
