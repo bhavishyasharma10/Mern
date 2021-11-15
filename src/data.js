@@ -3,7 +3,7 @@ export const sliderItems = [
     id: 1,
     img: "https://drive.google.com/uc?export=view&id=1Br2cncEcwPpeeLsdbxlZVSMsrjDSZ4sZ",
 
-    title: "SUMMER SALE",
+    title: "EARRING SALE",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "f5fafd",
   },
@@ -11,7 +11,7 @@ export const sliderItems = [
     id: 2,
     img: "https://drive.google.com/uc?export=view&id=1IWY-Mr1bMna_mOMNxQ58HFanAy_rRkyQ",
 
-    title: "AUTUMN COLLECTION",
+    title: "FLORA COLLECTION",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "adc3d0",
   },
@@ -19,7 +19,7 @@ export const sliderItems = [
     id: 3,
     img: "https://drive.google.com/uc?export=view&id=1I58NFrKcS1ZvqHzF4DSjgwspPucWMZa1",
 
-    title: "LOUNGEWEAR LOVE",
+    title: "JEWELLERY LOVE",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "fbf0f4",
   },
