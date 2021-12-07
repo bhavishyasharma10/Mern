@@ -1,6 +1,6 @@
-import Topbar from "./components/topbar/Topbar";
+import Topbar from "./components/Topbar";
 import styled from "styled-components";
-import Sidebar from "./components/sidebar/Sidebar";
+import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 
 const Container = styled.div`

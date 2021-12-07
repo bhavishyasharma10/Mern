@@ -57,15 +57,17 @@ const Sidebar = () => {
           <SidebarTitle>Dashboard </SidebarTitle>
           <SidebarList>
             <SidebarListItem active>
-              <Home />
+              <Home style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
               Home
             </SidebarListItem>
             <SidebarListItem>
-              <Timeline />
+              <Timeline style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
               Analytics
             </SidebarListItem>
             <SidebarListItem>
-              <TrendingUp />
+              <TrendingUp
+                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+              />
               Sales
             </SidebarListItem>
           </SidebarList>
@@ -74,19 +76,25 @@ const Sidebar = () => {
           <SidebarTitle>Quick Menu </SidebarTitle>
           <SidebarList>
             <SidebarListItem>
-              <AccountCircleOutlined />
+              <AccountCircleOutlined
+                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+              />
               Users
             </SidebarListItem>
             <SidebarListItem>
-              <ShopOutlined />
+              <ShopOutlined
+                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+              />
               Products
             </SidebarListItem>
             <SidebarListItem>
-              <MoneyOutlined />
+              <MoneyOutlined
+                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+              />
               Transactions
             </SidebarListItem>
             <SidebarListItem>
-              <BarChart />
+              <BarChart style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
               Reports
             </SidebarListItem>
           </SidebarList>
@@ -95,15 +103,19 @@ const Sidebar = () => {
           <SidebarTitle>Notifications </SidebarTitle>
           <SidebarList>
             <SidebarListItem>
-              <MailOutlined />
+              <MailOutlined
+                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+              />
               Mail
             </SidebarListItem>
             <SidebarListItem>
-              <Feedback />
+              <Feedback style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
               Feedback
             </SidebarListItem>
             <SidebarListItem>
-              <ChatBubbleOutline />
+              <ChatBubbleOutline
+                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+              />
               Messages
             </SidebarListItem>
           </SidebarList>
@@ -112,15 +124,17 @@ const Sidebar = () => {
           <SidebarTitle>Staff </SidebarTitle>
           <SidebarList>
             <SidebarListItem>
-              <WorkOutlined />
+              <WorkOutlined
+                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+              />
               Manage
             </SidebarListItem>
             <SidebarListItem>
-              <Timeline />
+              <Timeline style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
               Analytics
             </SidebarListItem>
             <SidebarListItem>
-              <Report />
+              <Report style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
               Reports
             </SidebarListItem>
           </SidebarList>

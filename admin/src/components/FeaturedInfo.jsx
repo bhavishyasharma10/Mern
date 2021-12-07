@@ -56,7 +56,7 @@ const FeaturedInfo = () => {
           <FeaturedMoneyRate>
             -11.4
             <FeaturedIcon type="negative">
-              <ArrowDownward />
+              <ArrowDownward style={{ fontSize: "0.75em" }} />
             </FeaturedIcon>
           </FeaturedMoneyRate>
         </FeaturedMoneyContainer>
@@ -70,7 +70,7 @@ const FeaturedInfo = () => {
           <FeaturedMoneyRate>
             -1.4
             <FeaturedIcon type="negative">
-              <ArrowDownward />
+              <ArrowDownward style={{ fontSize: "0.75em" }} />
             </FeaturedIcon>
           </FeaturedMoneyRate>
         </FeaturedMoneyContainer>
@@ -84,7 +84,7 @@ const FeaturedInfo = () => {
           <FeaturedMoneyRate>
             +2.49
             <FeaturedIcon type="positive">
-              <ArrowUpward />
+              <ArrowUpward style={{ fontSize: "0.75em" }} />
             </FeaturedIcon>
           </FeaturedMoneyRate>
         </FeaturedMoneyContainer>
