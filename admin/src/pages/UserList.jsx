@@ -31,6 +31,10 @@ const UserListButton = styled.button`
 
 const UserList = () => {
   const [data, setData] = useState(userRows);
+
+  const handleDelete = (id) => {
+    setData(data.filter((item) => item.id !== id));
+  };
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
@@ -70,7 +74,7 @@ const UserList = () => {
       renderCell: (params) => {
         return (
           <div>
-            <Link to={"/users/" + params.row.id}>
+            <Link to={"/user/" + params.row.id}>
               <UserListButton>Edit</UserListButton>
             </Link>
             <DeleteOutlineOutlined
@@ -80,6 +84,7 @@ const UserList = () => {
                 color: "red",
                 cursor: "pointer",
               }}
+              onClick={() => handleDelete(params.row.id)}
             />
           </div>
         );

@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./pages/UserList";
+import User from "./pages/User";
 const Container = styled.div`
   display: flex;
 `;
@@ -19,6 +20,9 @@ function App() {
           </Routes>
           <Routes>
             <Route exact path="/users" element={<UserList />} />
+          </Routes>
+          <Routes>
+            <Route exact path="/user/:userId" element={<User />} />
           </Routes>
         </Router>
       </Container>
