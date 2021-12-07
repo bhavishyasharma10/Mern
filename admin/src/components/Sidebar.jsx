@@ -13,6 +13,7 @@ import {
   Report,
 } from "@material-ui/icons";
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SidebarClass = styled.div`
@@ -48,7 +49,10 @@ const SidebarListItem = styled.li`
     background-color: lavenderblush;
   }
 `;
-
+const LinkStyle = {
+  textDecoration: "none",
+  color: "inherit",
+};
 const Sidebar = () => {
   return (
     <SidebarClass>
@@ -56,10 +60,12 @@ const Sidebar = () => {
         <SidebarMenu>
           <SidebarTitle>Dashboard </SidebarTitle>
           <SidebarList>
-            <SidebarListItem active>
-              <Home style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
-              Home
-            </SidebarListItem>
+            <Link to="/" style={LinkStyle}>
+              <SidebarListItem active>
+                <Home style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
+                Home
+              </SidebarListItem>
+            </Link>
             <SidebarListItem>
               <Timeline style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
               Analytics
@@ -75,18 +81,22 @@ const Sidebar = () => {
         <SidebarMenu>
           <SidebarTitle>Quick Menu </SidebarTitle>
           <SidebarList>
-            <SidebarListItem>
-              <AccountCircleOutlined
-                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-              />
-              Users
-            </SidebarListItem>
-            <SidebarListItem>
-              <ShopOutlined
-                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-              />
-              Products
-            </SidebarListItem>
+            <Link to="/users" style={LinkStyle}>
+              <SidebarListItem>
+                <AccountCircleOutlined
+                  style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+                />
+                Users
+              </SidebarListItem>
+            </Link>
+            <Link to="/products" style={LinkStyle}>
+              <SidebarListItem>
+                <ShopOutlined
+                  style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+                />
+                Products
+              </SidebarListItem>
+            </Link>
             <SidebarListItem>
               <MoneyOutlined
                 style={{ fontSize: "1.25em", marginRight: "0.25em" }}

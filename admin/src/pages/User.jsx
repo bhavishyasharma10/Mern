@@ -7,6 +7,7 @@ import {
   PublishOutlined,
 } from "@material-ui/icons";
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -34,6 +35,7 @@ const UserAddButton = styled.button`
 const UserContainer = styled.div`
   display: flex;
   margin-top: 1em;
+  flex-wrap: wrap;
 `;
 const UserShow = styled.div`
   flex: 1;
@@ -147,7 +149,9 @@ const User = () => {
     <Container>
       <UserTitleContainer>
         <UserTitle>Edit User </UserTitle>
-        <UserAddButton>Create</UserAddButton>
+        <Link to="/newUser">
+          <UserAddButton>Create</UserAddButton>
+        </Link>
       </UserTitleContainer>
       <UserContainer>
         <UserShow>

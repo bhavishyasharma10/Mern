@@ -5,27 +5,43 @@ import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./pages/UserList";
 import User from "./pages/User";
+import NewUser from "./pages/NewUser";
+import ProductList from "./pages/ProductList";
 const Container = styled.div`
   display: flex;
 `;
+
 function App() {
   return (
     <div>
-      <Topbar />
-      <Container>
-        <Sidebar />
-        <Router>
+      <Router>
+        <Topbar />
+        <Container>
+          <Sidebar />
+
           <Routes>
             <Route exact path="/" element={<Home />} />
           </Routes>
           <Routes>
-            <Route exact path="/users" element={<UserList />} />
+            <Route path="/users" element={<UserList />} />
           </Routes>
           <Routes>
-            <Route exact path="/user/:userId" element={<User />} />
+            <Route path="/user/:userId" element={<User />} />
           </Routes>
-        </Router>
-      </Container>
+          <Routes>
+            <Route path="/newUser" element={<NewUser />} />
+          </Routes>
+          <Routes>
+            <Route path="/products" element={<ProductList />} />
+          </Routes>
+          <Routes>
+            <Route path="/product/:productId" element={<ProductList />} />
+          </Routes>
+          <Routes>
+            <Route path="/newproduct" element={<ProductList />} />
+          </Routes>
+        </Container>
+      </Router>
     </div>
   );
 }
