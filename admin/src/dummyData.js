@@ -49,6 +49,20 @@ export const userData = [
   },
 ];
 
+export const productData = [
+  {
+    name: "Jan",
+    Sales: 4000,
+  },
+  {
+    name: "Feb",
+    Sales: 3000,
+  },
+  {
+    name: "Mar",
+    Sales: 6000,
+  },
+];
 export const userRows = [
   {
     id: 1,
@@ -137,5 +151,96 @@ export const userRows = [
     email: "hone1@gmail.com",
     status: "active",
     transaction: "$540.00",
+  },
+];
+
+export const productRows = [
+  {
+    id: 1,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 2,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 3,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 4,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 5,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 6,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 7,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 8,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 9,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 10,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
+  },
+  {
+    id: 11,
+    name: "Earrings ",
+    img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
+    stock: 123,
+    status: "active",
+    price: "$200.00",
   },
 ];

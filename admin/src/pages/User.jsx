@@ -30,7 +30,6 @@ const UserAddButton = styled.button`
   cursor: pointer;
 
   font-size: 1em;
-  font-weight: 300;
 `;
 const UserContainer = styled.div`
   display: flex;

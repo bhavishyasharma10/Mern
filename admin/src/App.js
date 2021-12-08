@@ -7,6 +7,8 @@ import UserList from "./pages/UserList";
 import User from "./pages/User";
 import NewUser from "./pages/NewUser";
 import ProductList from "./pages/ProductList";
+import Product from "./pages/Product";
+import NewProduct from "./pages/NewProduct";
 const Container = styled.div`
   display: flex;
 `;
@@ -35,10 +37,10 @@ function App() {
             <Route path="/products" element={<ProductList />} />
           </Routes>
           <Routes>
-            <Route path="/product/:productId" element={<ProductList />} />
+            <Route path="/product/:productId" element={<Product />} />
           </Routes>
           <Routes>
-            <Route path="/newproduct" element={<ProductList />} />
+            <Route path="/newproduct" element={<NewProduct />} />
           </Routes>
         </Container>
       </Router>
