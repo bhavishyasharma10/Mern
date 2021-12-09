@@ -17,7 +17,9 @@ const TopbarWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-const TopLeft = styled.div``;
+const TopLeft = styled.div`
+  padding-left: 1.875em;
+`;
 const Logo = styled.span`
   font-weight: bold;
   font-size: 1.5em;

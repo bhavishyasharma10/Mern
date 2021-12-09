@@ -1,6 +1,7 @@
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { userRequest } from "../requestMethods";
 
 const Featured = styled.div`
   width: 100%;
@@ -48,17 +49,39 @@ const FeaturedSub = styled.span`
 `;
 
 const FeaturedInfo = () => {
+  const [income, setIncome] = useState([]);
+  const [perc, setPerc] = useState(0);
+  useEffect(() => {
+    const getIncome = async () => {
+      try {
+        const res = await userRequest.get("orders/income");
+        setIncome(res.data);
+        setPerc(
+          ((res.data[0].total - res.data[1].total) / res.data[1].total) * 100.0
+        );
+      } catch {}
+    };
+
+    getIncome();
+  }, []);
+  console.log(income);
   return (
     <Featured>
       <FeaturedItem>
         <FeaturedTitle>Revenue</FeaturedTitle>
         <FeaturedMoneyContainer>
-          <FeaturedMoney>$25</FeaturedMoney>
+          <FeaturedMoney>$ {income[0]?.total}</FeaturedMoney>
           <FeaturedMoneyRate>
-            -11.4
-            <FeaturedIcon type="negative">
-              <ArrowDownward style={{ fontSize: "0.75em" }} />
-            </FeaturedIcon>
+            {Math.floor(perc)}%
+            {perc < 0 ? (
+              <FeaturedIcon type="negative">
+                <ArrowDownward style={{ fontSize: "0.75em" }} />
+              </FeaturedIcon>
+            ) : (
+              <FeaturedIcon type="positive">
+                <ArrowUpward style={{ fontSize: "0.75em" }} />
+              </FeaturedIcon>
+            )}
           </FeaturedMoneyRate>
         </FeaturedMoneyContainer>
         <FeaturedSub>Compared to last month</FeaturedSub>

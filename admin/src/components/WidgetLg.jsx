@@ -64,24 +64,28 @@ const WidgetLg = () => {
     <WidgetLgContainer>
       <WidgetLgTitle>Latest Transactions</WidgetLgTitle>
       <WidgetLgTable>
-        <WidgetLgTr>
-          <WidgetLgTh>Customer</WidgetLgTh>
-          <WidgetLgTh>Date</WidgetLgTh>
-          <WidgetLgTh>Amount</WidgetLgTh>
-          <WidgetLgTh>Status</WidgetLgTh>
-        </WidgetLgTr>
-        {orders.map((order) => (
+        <thead>
           <WidgetLgTr>
-            <WidgetLgUser>
-              <WidgetLgName>{order.userId}</WidgetLgName>
-            </WidgetLgUser>
-            <WidgetLgDate>{format(order.createdAt)}</WidgetLgDate>
-            <WidgetLgAmount>{order.amount}</WidgetLgAmount>
-            <WidgetLgStatus>
-              <Button type={order.status} />
-            </WidgetLgStatus>
+            <WidgetLgTh>Customer</WidgetLgTh>
+            <WidgetLgTh>Date</WidgetLgTh>
+            <WidgetLgTh>Amount</WidgetLgTh>
+            <WidgetLgTh>Status</WidgetLgTh>
           </WidgetLgTr>
-        ))}
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <WidgetLgTr key={order.id}>
+              <WidgetLgUser>
+                <WidgetLgName>{order.userId}</WidgetLgName>
+              </WidgetLgUser>
+              <WidgetLgDate>{format(order.createdAt)}</WidgetLgDate>
+              <WidgetLgAmount>{order.amount}</WidgetLgAmount>
+              <WidgetLgStatus>
+                <Button type={order.status} />
+              </WidgetLgStatus>
+            </WidgetLgTr>
+          ))}
+        </tbody>
       </WidgetLgTable>
     </WidgetLgContainer>
   );

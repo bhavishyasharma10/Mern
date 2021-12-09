@@ -11,21 +11,38 @@ import {
   ChatBubbleOutline,
   WorkOutlined,
   Report,
+  VisibilityOffOutlined,
+  VisibilityOutlined,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SidebarClass = styled.div`
-  flex: 1;
+  flex: ${(props) => (props.show === "Off" ? "0" : "1")};
   height: calc(100vh - 3.125em);
   background-color: lavender;
   position: sticky;
   top: 3.125em;
+  z-index: 999;
+`;
+const VisibilityWrapper = styled.div`
+  position: absolute;
+  margin-left: 4%;
+  top: -6.5%;
+  background-color: white;
+  color: slateblue;
+  padding: 0.35em;
+  border-radius: 0.5em;
+  border: 0.125em solid slategray;
+  cursor: pointer;
+  display: ${(props) => (props.show === "Off" ? "none" : "flex")};
+  font-size: 0.875em;
 `;
 const SidebarWrapper = styled.div`
   padding: 0.75em;
   color: #555;
+  display: ${(props) => (props.show === "Off" ? "none" : "")};
 `;
 const SidebarMenu = styled.div`
   margin-bottom: 0.625em;
@@ -53,10 +70,26 @@ const LinkStyle = {
   textDecoration: "none",
   color: "inherit",
 };
+
 const Sidebar = () => {
+  const [visible, setVisible] = useState("On");
+
+  const handleClick = () => {
+    if (visible === "On") {
+      setVisible("Off");
+    } else {
+      setVisible("On");
+    }
+  };
   return (
-    <SidebarClass>
-      <SidebarWrapper>
+    <SidebarClass show={visible}>
+      <VisibilityWrapper onClick={handleClick}>
+        <VisibilityOutlined />
+      </VisibilityWrapper>
+      <VisibilityWrapper onClick={handleClick} show={visible}>
+        <VisibilityOffOutlined />
+      </VisibilityWrapper>
+      <SidebarWrapper show={visible}>
         <SidebarMenu>
           <SidebarTitle>Dashboard </SidebarTitle>
           <SidebarList>

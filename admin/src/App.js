@@ -14,7 +14,9 @@ import { useSelector } from "react-redux";
 const Container = styled.div`
   display: flex;
 `;
-const AdminPanel = styled.div``;
+const AdminPanel = styled.div`
+  position: relative;
+`;
 
 function App() {
   let admin = useSelector((state) => state.user.currentUser);
