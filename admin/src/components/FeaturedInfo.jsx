@@ -6,6 +6,7 @@ const Featured = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin-top: 0.625em;
 `;
 const FeaturedItem = styled.div`

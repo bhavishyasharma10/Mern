@@ -9,42 +9,53 @@ import NewUser from "./pages/NewUser";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
 import NewProduct from "./pages/NewProduct";
+import Login from "./pages/Login";
+import { useSelector } from "react-redux";
 const Container = styled.div`
   display: flex;
 `;
+const AdminPanel = styled.div``;
 
 function App() {
-  return (
-    <div>
-      <Router>
-        <Topbar />
-        <Container>
-          <Sidebar />
+  let admin = useSelector((state) => state.user.currentUser);
+  if (admin) admin = admin.isAdmin;
+  else admin = false;
 
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-          </Routes>
-          <Routes>
-            <Route path="/users" element={<UserList />} />
-          </Routes>
-          <Routes>
-            <Route path="/user/:userId" element={<User />} />
-          </Routes>
-          <Routes>
-            <Route path="/newUser" element={<NewUser />} />
-          </Routes>
-          <Routes>
-            <Route path="/products" element={<ProductList />} />
-          </Routes>
-          <Routes>
-            <Route path="/product/:productId" element={<Product />} />
-          </Routes>
-          <Routes>
-            <Route path="/newproduct" element={<NewProduct />} />
-          </Routes>
-        </Container>
-      </Router>
-    </div>
+  return (
+    <Router>
+      <Routes>
+        <Route exact path="/login" element={<Login />} />
+      </Routes>
+      {admin && (
+        <AdminPanel>
+          <Topbar />
+          <Container>
+            <Sidebar />
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+            </Routes>
+            <Routes>
+              <Route path="/users" element={<UserList />} />
+            </Routes>
+            <Routes>
+              <Route path="/user/:userId" element={<User />} />
+            </Routes>
+            <Routes>
+              <Route path="/newUser" element={<NewUser />} />
+            </Routes>
+            <Routes>
+              <Route path="/products" element={<ProductList />} />
+            </Routes>
+            <Routes>
+              <Route path="/product/:productId" element={<Product />} />
+            </Routes>
+            <Routes>
+              <Route path="/newproduct" element={<NewProduct />} />
+            </Routes>
+          </Container>
+        </AdminPanel>
+      )}
+    </Router>
   );
 }
 

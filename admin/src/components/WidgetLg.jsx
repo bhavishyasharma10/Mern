@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import { userRequest } from "../requestMethods";
+import { format } from "timeago.js";
 const WidgetLgContainer = styled.div`
   flex: 2;
   box-shadow: 9px -1px 27px 11px rgba(223, 242, 245, 0.74);
@@ -11,8 +12,8 @@ const WidgetLgTitle = styled.h3`
   font-weight: 600;
 `;
 const WidgetLgTable = styled.table`
-  width: 100%;
   border-spacing: 1.25em;
+  width: 0;
 `;
 const WidgetLgTr = styled.tr``;
 const WidgetLgTh = styled.th`
@@ -23,13 +24,7 @@ const WidgetLgUser = styled.td`
   align-items: center;
   font-weight: 600;
 `;
-const WidgetLgUserImg = styled.img`
-  height: 2.25em;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 1em;
-`;
-const WidgetLgUserName = styled.span``;
+const WidgetLgName = styled.span``;
 const WidgetLgDate = styled.td`
   font-weight: 300;
 `;
@@ -56,6 +51,15 @@ const Button = ({ type }) => {
   return <WidgetLgButton status={type}>{type}</WidgetLgButton>;
 };
 const WidgetLg = () => {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      const res = await userRequest.get("orders/");
+      setOrders(res.data);
+    };
+    getOrders();
+  });
   return (
     <WidgetLgContainer>
       <WidgetLgTitle>Latest Transactions</WidgetLgTitle>
@@ -66,62 +70,18 @@ const WidgetLg = () => {
           <WidgetLgTh>Amount</WidgetLgTh>
           <WidgetLgTh>Status</WidgetLgTh>
         </WidgetLgTr>
-
-        <WidgetLgTr>
-          <WidgetLgUser>
-            <WidgetLgUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-            <WidgetLgUserName>Susan Carol</WidgetLgUserName>
-          </WidgetLgUser>
-          <WidgetLgDate>2 Jun 2021</WidgetLgDate>
-          <WidgetLgAmount>$122.50</WidgetLgAmount>
-          <WidgetLgStatus>
-            <Button type="Approved" />
-          </WidgetLgStatus>
-        </WidgetLgTr>
-        <WidgetLgTr>
-          <WidgetLgUser>
-            <WidgetLgUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-            <WidgetLgUserName>Susan Carol</WidgetLgUserName>
-          </WidgetLgUser>
-          <WidgetLgDate>2 Jun 2021</WidgetLgDate>
-          <WidgetLgAmount>$122.50</WidgetLgAmount>
-          <WidgetLgStatus>
-            <Button type="Pending" />
-          </WidgetLgStatus>
-        </WidgetLgTr>
-        <WidgetLgTr>
-          <WidgetLgUser>
-            <WidgetLgUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-            <WidgetLgUserName>Susan Carol</WidgetLgUserName>
-          </WidgetLgUser>
-          <WidgetLgDate>2 Jun 2021</WidgetLgDate>
-          <WidgetLgAmount>$122.50</WidgetLgAmount>
-          <WidgetLgStatus>
-            <Button type="Approved" />
-          </WidgetLgStatus>
-        </WidgetLgTr>
-        <WidgetLgTr>
-          <WidgetLgUser>
-            <WidgetLgUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-            <WidgetLgUserName>Susan Carol</WidgetLgUserName>
-          </WidgetLgUser>
-          <WidgetLgDate>2 Jun 2021</WidgetLgDate>
-          <WidgetLgAmount>$122.50</WidgetLgAmount>
-          <WidgetLgStatus>
-            <Button type="Declined" />
-          </WidgetLgStatus>
-        </WidgetLgTr>
-        <WidgetLgTr>
-          <WidgetLgUser>
-            <WidgetLgUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-            <WidgetLgUserName>Susan Carol</WidgetLgUserName>
-          </WidgetLgUser>
-          <WidgetLgDate>2 Jun 2021</WidgetLgDate>
-          <WidgetLgAmount>$122.50</WidgetLgAmount>
-          <WidgetLgStatus>
-            <Button type="Pending" />
-          </WidgetLgStatus>
-        </WidgetLgTr>
+        {orders.map((order) => (
+          <WidgetLgTr>
+            <WidgetLgUser>
+              <WidgetLgName>{order.userId}</WidgetLgName>
+            </WidgetLgUser>
+            <WidgetLgDate>{format(order.createdAt)}</WidgetLgDate>
+            <WidgetLgAmount>{order.amount}</WidgetLgAmount>
+            <WidgetLgStatus>
+              <Button type={order.status} />
+            </WidgetLgStatus>
+          </WidgetLgTr>
+        ))}
       </WidgetLgTable>
     </WidgetLgContainer>
   );

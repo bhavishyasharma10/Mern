@@ -8,11 +8,12 @@ import { userData } from "../dummyData";
 
 const HomePage = styled.div`
   flex: 5;
-  width: 90%;
+  width: 0;
 `;
 const HomeWidget = styled.div`
   display: flex;
   margin: 1.25em;
+  flex-wrap: wrap;
 `;
 const Home = () => {
   return (

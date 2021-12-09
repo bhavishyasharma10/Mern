@@ -1,12 +1,11 @@
 import { Visibility } from "@material-ui/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import { userRequest } from "../requestMethods";
 const WidgetSmContainer = styled.div`
   flex: 1;
   box-shadow: 9px -1px 27px 11px rgba(223, 242, 245, 0.74);
   padding: 1em;
-  margin-right: 1.25em;
 `;
 const WidgetSmTitle = styled.span`
   font-size: 1.2em;
@@ -36,10 +35,6 @@ const WidgetSmUser = styled.div`
 const WidgetSmUserName = styled.span`
   font-weight: 600;
 `;
-const WidgetSmUserTitle = styled.span`
-  font-weight: 300;
-`;
-
 const WidgetSmButton = styled.button`
   display: flex;
   align-items: center;
@@ -52,79 +47,41 @@ const WidgetSmButton = styled.button`
 `;
 
 const WidgetSm = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const res = await userRequest.get("users/?new=true");
+      setUsers(res.data);
+    };
+    getUsers();
+  });
+
   return (
     <WidgetSmContainer>
       <WidgetSmTitle>New Join Members</WidgetSmTitle>
       <WidgetSmList>
-        <WidgetSmListItem>
-          <WidgetSmUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
+        {users.map((user) => (
+          <WidgetSmListItem key={user.id}>
+            <WidgetSmUserImg
+              src={
+                user.img ||
+                "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+              }
+            />
 
-          <WidgetSmUser>
-            <WidgetSmUserName>Anaa kellar</WidgetSmUserName>
-            <WidgetSmUserTitle>Software Engineer</WidgetSmUserTitle>
-          </WidgetSmUser>
+            <WidgetSmUser>
+              <WidgetSmUserName>{user.username}</WidgetSmUserName>
+            </WidgetSmUser>
 
-          <WidgetSmButton>
-            <Visibility style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
-            Display
-          </WidgetSmButton>
-        </WidgetSmListItem>
-
-        <WidgetSmListItem>
-          <WidgetSmUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-
-          <WidgetSmUser>
-            <WidgetSmUserName>Anaa kellar</WidgetSmUserName>
-            <WidgetSmUserTitle>Software Engineer</WidgetSmUserTitle>
-          </WidgetSmUser>
-
-          <WidgetSmButton>
-            <Visibility style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
-            Display
-          </WidgetSmButton>
-        </WidgetSmListItem>
-
-        <WidgetSmListItem>
-          <WidgetSmUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-
-          <WidgetSmUser>
-            <WidgetSmUserName>Anaa kellar</WidgetSmUserName>
-            <WidgetSmUserTitle>Software Engineer</WidgetSmUserTitle>
-          </WidgetSmUser>
-
-          <WidgetSmButton>
-            <Visibility style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
-            Display
-          </WidgetSmButton>
-        </WidgetSmListItem>
-
-        <WidgetSmListItem>
-          <WidgetSmUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-
-          <WidgetSmUser>
-            <WidgetSmUserName>Anaa kellar</WidgetSmUserName>
-            <WidgetSmUserTitle>Software Engineer</WidgetSmUserTitle>
-          </WidgetSmUser>
-
-          <WidgetSmButton>
-            <Visibility style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
-            Display
-          </WidgetSmButton>
-        </WidgetSmListItem>
-
-        <WidgetSmListItem>
-          <WidgetSmUserImg src="https://cdn-icons-png.flaticon.com/512/149/149071.png" />
-
-          <WidgetSmUser>
-            <WidgetSmUserName>Anaa kellar</WidgetSmUserName>
-            <WidgetSmUserTitle>Software Engineer</WidgetSmUserTitle>
-          </WidgetSmUser>
-
-          <WidgetSmButton>
-            <Visibility style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
-            Display
-          </WidgetSmButton>
-        </WidgetSmListItem>
+            <WidgetSmButton>
+              <Visibility
+                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
+              />
+              Display
+            </WidgetSmButton>
+          </WidgetSmListItem>
+        ))}
       </WidgetSmList>
     </WidgetSmContainer>
   );
