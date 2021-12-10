@@ -11,17 +11,41 @@ import Product from "./pages/Product";
 import NewProduct from "./pages/NewProduct";
 import Login from "./pages/Login";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import { List } from "@material-ui/icons";
 const Container = styled.div`
   display: flex;
 `;
 const AdminPanel = styled.div`
   position: relative;
 `;
+const VisibilityWrapper = styled.div`
+  position: fixed;
+  margin: 0.35em;
+  background-color: white;
+  color: slateblue;
+  padding: 0.3em;
+  border-radius: 0.5em;
+  border: 0.125em solid slategray;
+  cursor: pointer;
+  font-size: 0.875em;
+  z-index: 1000;
+`;
 
 function App() {
   let admin = useSelector((state) => state.user.currentUser);
   if (admin) admin = admin.isAdmin;
   else admin = false;
+
+  const [visible, setVisible] = useState("On");
+
+  const handleClick = () => {
+    if (visible === "On") {
+      setVisible("Off");
+    } else {
+      setVisible("On");
+    }
+  };
 
   return (
     <Router>
@@ -30,9 +54,12 @@ function App() {
       </Routes>
       {admin && (
         <AdminPanel>
+          <VisibilityWrapper onClick={handleClick}>
+            <List />
+          </VisibilityWrapper>
           <Topbar />
           <Container>
-            <Sidebar />
+            <Sidebar visibility={visible} />
             <Routes>
               <Route exact path="/" element={<Home />} />
             </Routes>

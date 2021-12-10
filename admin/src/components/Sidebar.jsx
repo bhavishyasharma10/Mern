@@ -11,34 +11,20 @@ import {
   ChatBubbleOutline,
   WorkOutlined,
   Report,
-  VisibilityOffOutlined,
-  VisibilityOutlined,
 } from "@material-ui/icons";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SidebarClass = styled.div`
   flex: ${(props) => (props.show === "Off" ? "0" : "1")};
+
   height: calc(100vh - 3.125em);
   background-color: lavender;
   position: sticky;
   top: 3.125em;
-  z-index: 999;
 `;
-const VisibilityWrapper = styled.div`
-  position: absolute;
-  margin-left: 4%;
-  top: -6.5%;
-  background-color: white;
-  color: slateblue;
-  padding: 0.35em;
-  border-radius: 0.5em;
-  border: 0.125em solid slategray;
-  cursor: pointer;
-  display: ${(props) => (props.show === "Off" ? "none" : "flex")};
-  font-size: 0.875em;
-`;
+
 const SidebarWrapper = styled.div`
   padding: 0.75em;
   color: #555;
@@ -70,43 +56,29 @@ const LinkStyle = {
   textDecoration: "none",
   color: "inherit",
 };
-
-const Sidebar = () => {
-  const [visible, setVisible] = useState("On");
-
-  const handleClick = () => {
-    if (visible === "On") {
-      setVisible("Off");
-    } else {
-      setVisible("On");
-    }
-  };
+const IconStyle = {
+  fontSize: "1.25em",
+  marginRight: "0.25em",
+};
+const Sidebar = ({ visibility }) => {
   return (
-    <SidebarClass show={visible}>
-      <VisibilityWrapper onClick={handleClick}>
-        <VisibilityOutlined />
-      </VisibilityWrapper>
-      <VisibilityWrapper onClick={handleClick} show={visible}>
-        <VisibilityOffOutlined />
-      </VisibilityWrapper>
-      <SidebarWrapper show={visible}>
+    <SidebarClass show={visibility}>
+      <SidebarWrapper show={visibility}>
         <SidebarMenu>
           <SidebarTitle>Dashboard </SidebarTitle>
           <SidebarList>
             <Link to="/" style={LinkStyle}>
               <SidebarListItem active>
-                <Home style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
+                <Home style={IconStyle} />
                 Home
               </SidebarListItem>
             </Link>
             <SidebarListItem>
-              <Timeline style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
+              <Timeline style={IconStyle} />
               Analytics
             </SidebarListItem>
             <SidebarListItem>
-              <TrendingUp
-                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-              />
+              <TrendingUp style={IconStyle} />
               Sales
             </SidebarListItem>
           </SidebarList>
@@ -116,28 +88,22 @@ const Sidebar = () => {
           <SidebarList>
             <Link to="/users" style={LinkStyle}>
               <SidebarListItem>
-                <AccountCircleOutlined
-                  style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-                />
+                <AccountCircleOutlined style={IconStyle} />
                 Users
               </SidebarListItem>
             </Link>
             <Link to="/products" style={LinkStyle}>
               <SidebarListItem>
-                <ShopOutlined
-                  style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-                />
+                <ShopOutlined style={IconStyle} />
                 Products
               </SidebarListItem>
             </Link>
             <SidebarListItem>
-              <MoneyOutlined
-                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-              />
+              <MoneyOutlined style={IconStyle} />
               Transactions
             </SidebarListItem>
             <SidebarListItem>
-              <BarChart style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
+              <BarChart style={IconStyle} />
               Reports
             </SidebarListItem>
           </SidebarList>
@@ -146,19 +112,15 @@ const Sidebar = () => {
           <SidebarTitle>Notifications </SidebarTitle>
           <SidebarList>
             <SidebarListItem>
-              <MailOutlined
-                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-              />
+              <MailOutlined style={IconStyle} />
               Mail
             </SidebarListItem>
             <SidebarListItem>
-              <Feedback style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
+              <Feedback style={IconStyle} />
               Feedback
             </SidebarListItem>
             <SidebarListItem>
-              <ChatBubbleOutline
-                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-              />
+              <ChatBubbleOutline style={IconStyle} />
               Messages
             </SidebarListItem>
           </SidebarList>
@@ -167,17 +129,15 @@ const Sidebar = () => {
           <SidebarTitle>Staff </SidebarTitle>
           <SidebarList>
             <SidebarListItem>
-              <WorkOutlined
-                style={{ fontSize: "1.25em", marginRight: "0.25em" }}
-              />
+              <WorkOutlined style={IconStyle} />
               Manage
             </SidebarListItem>
             <SidebarListItem>
-              <Timeline style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
+              <Timeline style={IconStyle} />
               Analytics
             </SidebarListItem>
             <SidebarListItem>
-              <Report style={{ fontSize: "1.25em", marginRight: "0.25em" }} />
+              <Report style={IconStyle} />
               Reports
             </SidebarListItem>
           </SidebarList>

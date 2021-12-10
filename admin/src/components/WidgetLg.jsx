@@ -13,7 +13,7 @@ const WidgetLgTitle = styled.h3`
 `;
 const WidgetLgTable = styled.table`
   border-spacing: 1.25em;
-  width: 0;
+  width: 100%;
 `;
 const WidgetLgTr = styled.tr``;
 const WidgetLgTh = styled.th`

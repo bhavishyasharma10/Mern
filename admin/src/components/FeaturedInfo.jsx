@@ -64,7 +64,7 @@ const FeaturedInfo = () => {
 
     getIncome();
   }, []);
-  console.log(income);
+
   return (
     <Featured>
       <FeaturedItem>
