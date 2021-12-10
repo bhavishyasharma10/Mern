@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import app from "../firebase";
+import { addproducts } from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
 const NewProductContainer = styled.div`
   flex: 5;
   padding: 0.625em;
@@ -51,17 +59,82 @@ const AddProductButton = styled.button`
 `;
 
 const NewProduct = () => {
+  const [inputs, setInputs] = useState({});
+  const [file, setFile] = useState({});
+  const [cat, setCat] = useState({});
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+  const handleCat = (e) => {
+    setCat(e.target.value.split(","));
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    const filename = new Date().getTime() + file.name;
+    const storage = getStorage(app);
+    const storageRef = ref(storage, filename);
+
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+          default:
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          const product = { ...inputs, img: downloadURL, categories: cat };
+          addproducts(product, dispatch);
+        });
+      }
+    );
+  };
+
   return (
     <NewProductContainer>
       <AddProductTitle>New Product</AddProductTitle>
       <AddProductForm>
         <AddProductItem>
           <AddProductLabel>Image</AddProductLabel>
-          <AddProductInput type="file" id="file" />
+          <AddProductInput
+            type="file"
+            id="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
         </AddProductItem>
         <AddProductItem>
           <AddProductLabel>Title</AddProductLabel>
-          <AddProductInput type="text" name="title" placeholder="Earrings" />
+          <AddProductInput
+            type="text"
+            name="title"
+            placeholder="Earrings"
+            onChange={handleChange}
+          />
         </AddProductItem>
         <AddProductItem>
           <AddProductLabel>Description</AddProductLabel>
@@ -69,28 +142,34 @@ const NewProduct = () => {
             type="text"
             name="desc"
             placeholder="description.."
+            onChange={handleChange}
           />
         </AddProductItem>
         <AddProductItem>
           <AddProductLabel>Price</AddProductLabel>
-          <AddProductInput type="number" name="price" placeholder="100" />
+          <AddProductInput
+            type="number"
+            name="price"
+            placeholder="100"
+            onChange={handleChange}
+          />
         </AddProductItem>
         <AddProductItem>
           <AddProductLabel>Categories</AddProductLabel>
           <AddProductInput
             type="text"
-            name="title"
-            placeholder="Earrings/Jewllery"
+            placeholder="Earrings,Jewllery"
+            onChange={handleCat}
           />
         </AddProductItem>
         <AddProductItem>
           <AddProductLabel>Stock</AddProductLabel>
-          <AddProductSelect name="inStock">
+          <AddProductSelect name="InStock" onChange={handleChange}>
             <AddProductOption value="true">Yes</AddProductOption>
             <AddProductOption value="false">No</AddProductOption>
           </AddProductSelect>
         </AddProductItem>
-        <AddProductButton>Create</AddProductButton>
+        <AddProductButton onClick={handleClick}>Create</AddProductButton>
       </AddProductForm>
     </NewProductContainer>
   );
