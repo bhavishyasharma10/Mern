@@ -9,6 +9,8 @@ import {
 import app from "../firebase";
 import { addproducts } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const NewProductContainer = styled.div`
   flex: 5;
   padding: 0.625em;
@@ -63,6 +65,7 @@ const NewProduct = () => {
   const [file, setFile] = useState({});
   const [cat, setCat] = useState({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -110,6 +113,7 @@ const NewProduct = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
           addproducts(product, dispatch);
+          navigate("/products");
         });
       }
     );

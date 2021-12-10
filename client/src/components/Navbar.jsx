@@ -78,12 +78,17 @@ const MenuItem = styled.div`
 
   ${mobile({ fontSize: "60%", marginLeft: "10px" })}
 `;
-
+const TopAvatar = styled.img`
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  cursor: pointer;
+`;
 /* -------------------------------- */
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <Container>
       <Wrapper>
@@ -107,6 +112,14 @@ const Navbar = () => {
           </Link>
           <Link to="/login" style={{ textDecoration: "none" }}>
             <MenuItem>Sign In</MenuItem>
+          </Link>
+          <Link to={"/user/:" + user?._id} style={{ textDecoration: "none" }}>
+            <MenuItem>
+              <TopAvatar
+                src="https://drive.google.com/uc?export=view&id=1IWwq5a5B6xMrxwySD-tNfB8GNNwmk8eR"
+                alt=""
+              />
+            </MenuItem>
           </Link>
           <Link to="/cart">
             <MenuItem>

@@ -13,6 +13,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useSelector } from "react-redux";
+import User from "./pages/User";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -27,6 +28,10 @@ const App = () => {
         <Route
           path="/login"
           element={user ? <Navigate replace to="/" /> : <Login />}
+        />
+        <Route
+          path={"/user/:" + user?._id}
+          element={user ? <User /> : <Navigate replace to="/" />}
         />
         <Route
           path="/register"
