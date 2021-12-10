@@ -1,9 +1,11 @@
 import { PublishOutlined } from "@material-ui/icons";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useMemo, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Chart from "../components/Chart";
-import { productData } from "../dummyData";
+import { useSelector } from "react-redux";
+import { userRequest } from "../requestMethods";
+
 const ProductContainer = styled.div`
   flex: 5;
   padding: 1.15em;
@@ -135,6 +137,49 @@ const ProductUpdateLabel = styled.label`
 `;
 
 const Product = () => {
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product._id === productId)
+  );
+  const [pStats, setPStats] = useState([]);
+  const MONTHS = useMemo(
+    () => [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    []
+  );
+  useEffect(() => {
+    const getStats = async () => {
+      try {
+        const res = await userRequest.get("orders/income?pid=" + productId);
+        const list = res.data.sort((a, b) => {
+          return a._id - b._id;
+        });
+        list.map((item) =>
+          setPStats((prev) => [
+            ...prev,
+            { name: MONTHS[item._id - 1], Sales: item.total },
+          ])
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getStats();
+  }, [productId, MONTHS]);
+
   return (
     <ProductContainer>
       <ProductTitleContainer>
@@ -146,29 +191,29 @@ const Product = () => {
 
       <ProductTop>
         <ProductTopLeft>
-          <Chart data={productData} dataKey="Sales" title="Sales Performance" />
+          <Chart data={pStats} dataKey="Sales" title="Sales Performance" />
         </ProductTopLeft>
         <ProductTopRight>
           <ProductInfoTop>
-            <ProductImg src="https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD" />
-            <ProductName>Earrings</ProductName>
+            <ProductImg src={product.img} />
+            <ProductName>{product.title}</ProductName>
           </ProductInfoTop>
           <ProductInfoBottom>
             <ProductInfoItem>
               <ProductInfoKey>Id:</ProductInfoKey>
-              <ProductInfoValue>123</ProductInfoValue>
+              <ProductInfoValue>{product._id}</ProductInfoValue>
             </ProductInfoItem>
             <ProductInfoItem>
-              <ProductInfoKey>Sales:</ProductInfoKey>
-              <ProductInfoValue>$123</ProductInfoValue>
+              <ProductInfoKey>Price:</ProductInfoKey>
+              <ProductInfoValue>${product.price}</ProductInfoValue>
             </ProductInfoItem>
             <ProductInfoItem>
-              <ProductInfoKey>Active:</ProductInfoKey>
-              <ProductInfoValue>Yes</ProductInfoValue>
+              <ProductInfoKey>Category:</ProductInfoKey>
+              <ProductInfoValue>{product.categories}</ProductInfoValue>
             </ProductInfoItem>
             <ProductInfoItem>
               <ProductInfoKey>In Stock:</ProductInfoKey>
-              <ProductInfoValue>No</ProductInfoValue>
+              <ProductInfoValue>{product.InStock}</ProductInfoValue>
             </ProductInfoItem>
           </ProductInfoBottom>
         </ProductTopRight>
@@ -178,24 +223,25 @@ const Product = () => {
         <ProductForm>
           <ProductFormLeft>
             <ProductFormLabel>Product Name</ProductFormLabel>
-            <ProductFormInput type="text" placeholder="Earrings" />
+            <ProductFormInput type="text" placeholder={product.title} />
+            <ProductFormLabel>Product Description</ProductFormLabel>
+            <ProductFormInput type="text" placeholder={product.desc} />
+            <ProductFormLabel>Product Price</ProductFormLabel>
+            <ProductFormInput type="number" placeholder={product.price} />
             <ProductFormLabel>In Stock</ProductFormLabel>
-            <ProductFormSelect name="inStock" id="idStock">
-              <ProductFormOption value="yes">Yes</ProductFormOption>
-              <ProductFormOption value="no">No</ProductFormOption>
+            <ProductFormSelect name="inStock" id="inStock">
+              <ProductFormOption value="true">Yes</ProductFormOption>
+              <ProductFormOption value="false">No</ProductFormOption>
             </ProductFormSelect>
-            <ProductFormLabel>Active</ProductFormLabel>
-            <ProductFormSelect name="active" id="active">
-              <ProductFormOption value="yes">Yes</ProductFormOption>
-              <ProductFormOption value="no">No</ProductFormOption>
+            <ProductFormLabel>Categories</ProductFormLabel>
+            <ProductFormSelect name="categories" id="categories">
+              <ProductFormOption value="men">Men</ProductFormOption>
+              <ProductFormOption value="women">Women</ProductFormOption>
             </ProductFormSelect>
           </ProductFormLeft>
           <ProductFormRight>
             <ProductUpdateUpload>
-              <ProductUpdateImg
-                src="https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD"
-                alt=""
-              />
+              <ProductUpdateImg src={product.img} alt="" />
               <ProductUpdateLabel htmlFor="file">
                 <PublishOutlined style={{ cursor: "pointer" }} />
               </ProductUpdateLabel>
