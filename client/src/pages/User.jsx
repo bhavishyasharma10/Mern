@@ -9,11 +9,9 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Navbar from "../components/Navbar";
 
-const Container = styled.div`
-  padding: 1.15em;
-  width: 90%;
-`;
+const Container = styled.div``;
 const UserTitleContainer = styled.div`
   display: flex;
   align-items: center;
@@ -145,6 +143,7 @@ const UserUpdateButton = styled.button`
 const User = () => {
   return (
     <Container>
+      <Navbar />
       <UserTitleContainer>
         <UserTitle>Edit User </UserTitle>
       </UserTitleContainer>

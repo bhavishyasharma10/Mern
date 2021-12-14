@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Search from "@mui/icons-material/Search";
-
+import LogoutIcon from "@mui/icons-material/Logout";
 import Badge from "@mui/material/Badge";
 import { ShoppingBagOutlined } from "@mui/icons-material";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../redux/apiCalls";
 /* ------ Styled Components ------- */
 
 const Container = styled.div`
@@ -72,7 +73,7 @@ const Right = styled.div`
 `;
 const MenuItem = styled.div`
   font-size: 14px;
-  cursor: poiner;
+  cursor: pointer;
   margin-left: 25px;
   color: black;
 
@@ -84,11 +85,16 @@ const TopAvatar = styled.img`
   border-radius: 50%;
   cursor: pointer;
 `;
+
 /* -------------------------------- */
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    logout(dispatch);
+  };
   return (
     <Container>
       <Wrapper>
@@ -107,20 +113,35 @@ const Navbar = () => {
         </Center>
 
         <Right>
-          <Link to="/register" style={{ textDecoration: "none" }}>
-            <MenuItem>Register</MenuItem>
-          </Link>
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            <MenuItem>Sign In</MenuItem>
-          </Link>
-          <Link to={"/user/:" + user?._id} style={{ textDecoration: "none" }}>
-            <MenuItem>
-              <TopAvatar
-                src="https://drive.google.com/uc?export=view&id=1IWwq5a5B6xMrxwySD-tNfB8GNNwmk8eR"
-                alt=""
-              />
-            </MenuItem>
-          </Link>
+          {!user && (
+            <>
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                <MenuItem>Register</MenuItem>
+              </Link>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem>Sign In</MenuItem>
+              </Link>
+            </>
+          )}
+          {user && (
+            <>
+              <Link
+                to={"/user/:" + user?._id}
+                style={{ textDecoration: "none" }}
+              >
+                <MenuItem>
+                  <TopAvatar
+                    src="https://drive.google.com/uc?export=view&id=1IWwq5a5B6xMrxwySD-tNfB8GNNwmk8eR"
+                    alt=""
+                  />
+                </MenuItem>
+              </Link>
+
+              <MenuItem onClick={handleLogOut}>
+                <LogoutIcon />
+              </MenuItem>
+            </>
+          )}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
