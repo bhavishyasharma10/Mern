@@ -6,6 +6,16 @@ import Chart from "../components/Chart";
 import { useSelector } from "react-redux";
 import { userRequest } from "../requestMethods";
 import Multiselect from "multiselect-react-dropdown";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import app from "../firebase";
+import { updateproducts } from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ProductContainer = styled.div`
   flex: 5;
@@ -144,6 +154,24 @@ const Product = () => {
     state.product.products.find((product) => product._id === productId)
   );
   const [pStats, setPStats] = useState([]);
+  const [title, setTitle] = useState(product.title);
+  const [desc, setDesc] = useState(product.desc);
+  const [price, setPrice] = useState(product.price);
+  const [stock, setStock] = useState(price.inStock);
+
+  const [url, setUrl] = useState(product.img);
+  const [selectedSize, setSelectedSize] = useState(product.size);
+  const [selectedColor, setSelectedColor] = useState(product.color);
+  const [selectedCat, setSelectedCat] = useState(product.categories);
+  const colorOptions = ["blue", "black", "white", "indigo", "orange", "yellow"];
+  const sizeOptions = ["XS", "S", "M", "L", "XL"];
+  const catOptions = [
+    "Jwellery",
+    "Earrings",
+    "Jeans",
+    "Clutch Bags",
+    "Jackets",
+  ];
   const MONTHS = useMemo(
     () => [
       "Jan",
@@ -161,6 +189,9 @@ const Product = () => {
     ],
     []
   );
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const getStats = async () => {
       try {
@@ -180,9 +211,65 @@ const Product = () => {
     };
     getStats();
   }, [productId, MONTHS]);
-  const [selectedSize, setSelectedSize] = useState(product.size);
-  console.log(selectedSize);
-  const sizeOptions = ["XS", "S", "M", "L", "XL"];
+
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    const filename = new Date().getTime() + file.name;
+    const storage = getStorage(app);
+    const storageRef = ref(storage, filename);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+          default:
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+        console.log(error);
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setUrl(downloadURL);
+        });
+      }
+    );
+  };
+
+  const handleClick = () => {
+    const product = {
+      title: title,
+      price: price,
+      desc: desc,
+      _id: productId,
+      img: url,
+      categories: selectedCat,
+      size: selectedSize,
+      color: selectedColor,
+      InStock: stock,
+    };
+    updateproducts(productId, product, dispatch);
+    navigate(`/product/${productId}`);
+  };
 
   return (
     <ProductContainer>
@@ -227,20 +314,34 @@ const Product = () => {
         <ProductForm>
           <ProductFormLeft>
             <ProductFormLabel>Product Name</ProductFormLabel>
-            <ProductFormInput type="text" placeholder={product.title} />
+            <ProductFormInput
+              name="title"
+              type="text"
+              placeholder={product.title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
             <ProductFormLabel>Product Description</ProductFormLabel>
-            <ProductFormInput type="text" placeholder={product.desc} />
+            <ProductFormInput
+              name="desc"
+              type="text"
+              placeholder={product.desc}
+              onChange={(e) => setDesc(e.target.value)}
+            />
             <ProductFormLabel>Product Price</ProductFormLabel>
-            <ProductFormInput type="number" placeholder={product.price} />
+            <ProductFormInput
+              name="price"
+              type="number"
+              placeholder={product.price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
             <ProductFormLabel>In Stock</ProductFormLabel>
-            <ProductFormSelect name="inStock" id="inStock">
+            <ProductFormSelect
+              name="inStock"
+              id="inStock"
+              onChange={(e) => setStock(e.target.value)}
+            >
               <ProductFormOption value="true">Yes</ProductFormOption>
               <ProductFormOption value="false">No</ProductFormOption>
-            </ProductFormSelect>
-            <ProductFormLabel>Categories</ProductFormLabel>
-            <ProductFormSelect name="categories" id="categories">
-              <ProductFormOption value="men">Men</ProductFormOption>
-              <ProductFormOption value="women">Women</ProductFormOption>
             </ProductFormSelect>
             <ProductFormLabel>Size</ProductFormLabel>
             <Multiselect
@@ -250,6 +351,22 @@ const Product = () => {
               onRemove={(event) => setSelectedSize(event)}
               onSelect={(event) => setSelectedSize(event)}
             />
+            <ProductFormLabel>Color</ProductFormLabel>
+            <Multiselect
+              isObject={false}
+              options={colorOptions}
+              selectedValues={selectedColor}
+              onRemove={(event) => setSelectedColor(event)}
+              onSelect={(event) => setSelectedColor(event)}
+            />
+            <ProductFormLabel>Categories</ProductFormLabel>
+            <Multiselect
+              isObject={false}
+              options={catOptions}
+              selectedValues={selectedCat}
+              onRemove={(event) => setSelectedCat(event)}
+              onSelect={(event) => setSelectedCat(event)}
+            />
           </ProductFormLeft>
           <ProductFormRight>
             <ProductUpdateUpload>
@@ -257,9 +374,16 @@ const Product = () => {
               <ProductUpdateLabel htmlFor="file">
                 <PublishOutlined style={{ cursor: "pointer" }} />
               </ProductUpdateLabel>
-              <input type="file" id="file" style={{ display: "none" }} />
+              <input
+                type="file"
+                id="file"
+                style={{ display: "none" }}
+                onChange={handleUpload}
+              />
             </ProductUpdateUpload>
-            <ProductUpdateButton>Update</ProductUpdateButton>
+            <ProductUpdateButton onClick={handleClick}>
+              Update
+            </ProductUpdateButton>
           </ProductFormRight>
         </ProductForm>
       </ProductBottom>

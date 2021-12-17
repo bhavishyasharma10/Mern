@@ -70,9 +70,9 @@ const NewProduct = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const sizeOptions = ["XS", "S", "M", "L", "XL"];
   const colorOptions = ["blue", "black", "white", "indigo", "orange", "yellow"];
-
   const catOptions = [
     "Jwellery",
     "Earrings",
