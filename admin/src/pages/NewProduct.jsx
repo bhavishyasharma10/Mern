@@ -10,6 +10,7 @@ import app from "../firebase";
 import { addproducts } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Multiselect from "multiselect-react-dropdown";
 
 const NewProductContainer = styled.div`
   flex: 5;
@@ -63,60 +64,91 @@ const AddProductButton = styled.button`
 const NewProduct = () => {
   const [inputs, setInputs] = useState({});
   const [file, setFile] = useState({});
-  const [cat, setCat] = useState({});
+  const [size, setSize] = useState([]);
+  const [color, setColor] = useState([]);
+  const [cat, setCat] = useState([]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const sizeOptions = ["XS", "S", "M", "L", "XL"];
+  const colorOptions = ["blue", "black", "white", "indigo", "orange", "yellow"];
+
+  const catOptions = [
+    "Jwellery",
+    "Earrings",
+    "Jeans",
+    "Clutch Bags",
+    "Jackets",
+  ];
+
   const handleChange = (e) => {
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-  const handleCat = (e) => {
-    setCat(e.target.value.split(","));
-  };
-
   const handleClick = (e) => {
     e.preventDefault();
-    const filename = new Date().getTime() + file.name;
-    const storage = getStorage(app);
-    const storageRef = ref(storage, filename);
-
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    // Register three observers:
-    // 1. 'state_changed' observer, called any time the state changes
-    // 2. Error observer, called on failure
-    // 3. Completion observer, called on successful completion
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
-        switch (snapshot.state) {
-          case "paused":
-            console.log("Upload is paused");
-            break;
-          case "running":
-            console.log("Upload is running");
-            break;
-          default:
-        }
-      },
-      (error) => {
-        // Handle unsuccessful uploads
-      },
-      () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          const product = { ...inputs, img: downloadURL, categories: cat };
-          addproducts(product, dispatch);
-          navigate("/products");
-        });
+    const keys = Object.keys(inputs);
+    if (
+      keys.includes("title") &&
+      keys.includes("desc") &&
+      keys.includes("price") &&
+      "name" in file
+    ) {
+      if (Object.values(inputs).some((x) => x === "")) {
+        alert("Required Field left empty!");
+        return null;
       }
-    );
+      const filename = new Date().getTime() + file.name;
+      const storage = getStorage(app);
+      const storageRef = ref(storage, filename);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      // Register three observers:
+      // 1. 'state_changed' observer, called any time the state changes
+      // 2. Error observer, called on failure
+      // 3. Completion observer, called on successful completion
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+          }
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+          console.log(error);
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            const product = {
+              ...inputs,
+              img: downloadURL,
+              categories: cat,
+              size: size,
+              color: color,
+            };
+            addproducts(product, dispatch);
+            navigate("/products");
+          });
+        }
+      );
+    } else {
+      alert("Required fields are empty!!");
+    }
   };
 
   return (
@@ -160,10 +192,32 @@ const NewProduct = () => {
         </AddProductItem>
         <AddProductItem>
           <AddProductLabel>Categories</AddProductLabel>
-          <AddProductInput
-            type="text"
-            placeholder="Earrings,Jewllery"
-            onChange={handleCat}
+          <Multiselect
+            isObject={false}
+            options={catOptions}
+            selectedValues={cat}
+            onRemove={(event) => setCat(event)}
+            onSelect={(event) => setCat(event)}
+          />
+        </AddProductItem>
+        <AddProductItem>
+          <AddProductLabel>Size</AddProductLabel>
+          <Multiselect
+            isObject={false}
+            options={sizeOptions}
+            selectedValues={size}
+            onRemove={(event) => setSize(event)}
+            onSelect={(event) => setSize(event)}
+          />
+        </AddProductItem>
+        <AddProductItem>
+          <AddProductLabel>Color</AddProductLabel>
+          <Multiselect
+            isObject={false}
+            options={colorOptions}
+            selectedValues={color}
+            onRemove={(event) => setColor(event)}
+            onSelect={(event) => setColor(event)}
           />
         </AddProductItem>
         <AddProductItem>

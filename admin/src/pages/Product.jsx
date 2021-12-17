@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Chart from "../components/Chart";
 import { useSelector } from "react-redux";
 import { userRequest } from "../requestMethods";
+import Multiselect from "multiselect-react-dropdown";
 
 const ProductContainer = styled.div`
   flex: 5;
@@ -179,6 +180,9 @@ const Product = () => {
     };
     getStats();
   }, [productId, MONTHS]);
+  const [selectedSize, setSelectedSize] = useState(product.size);
+  console.log(selectedSize);
+  const sizeOptions = ["XS", "S", "M", "L", "XL"];
 
   return (
     <ProductContainer>
@@ -238,6 +242,14 @@ const Product = () => {
               <ProductFormOption value="men">Men</ProductFormOption>
               <ProductFormOption value="women">Women</ProductFormOption>
             </ProductFormSelect>
+            <ProductFormLabel>Size</ProductFormLabel>
+            <Multiselect
+              isObject={false}
+              options={sizeOptions}
+              selectedValues={selectedSize}
+              onRemove={(event) => setSelectedSize(event)}
+              onSelect={(event) => setSelectedSize(event)}
+            />
           </ProductFormLeft>
           <ProductFormRight>
             <ProductUpdateUpload>
