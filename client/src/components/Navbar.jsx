@@ -5,7 +5,8 @@ import Search from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import { ShoppingBagOutlined } from "@mui/icons-material";
 import { mobile } from "../responsive";
-
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 /* ------ Styled Components ------- */
 
 const Container = styled.div`
@@ -57,6 +58,7 @@ const Logo = styled.h1`
   font-size: 1.5em;
   font-family: "Tangerine";
   text-shadow: 4px 4px 4px #aaa;
+  color: black;
   ${mobile({ width: "100", fontSize: "0.90em" })};
 `;
 
@@ -72,12 +74,16 @@ const MenuItem = styled.div`
   font-size: 14px;
   cursor: poiner;
   margin-left: 25px;
+  color: black;
+
   ${mobile({ fontSize: "60%", marginLeft: "10px" })}
 `;
 
 /* -------------------------------- */
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <Container>
       <Wrapper>
@@ -90,17 +96,25 @@ const Navbar = () => {
         </Left>
 
         <Center>
-          <Logo>My Soul Tonic</Logo>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Logo>My Soul Tonic</Logo>
+          </Link>
         </Center>
 
         <Right>
-          <MenuItem>Register</MenuItem>
-          <MenuItem>Sign In</MenuItem>
-          <MenuItem>
-            <Badge badgeContent={4} color="primary">
-              <ShoppingBagOutlined />
-            </Badge>
-          </MenuItem>
+          <Link to="/register" style={{ textDecoration: "none" }}>
+            <MenuItem>Register</MenuItem>
+          </Link>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <MenuItem>Sign In</MenuItem>
+          </Link>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingBagOutlined />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>

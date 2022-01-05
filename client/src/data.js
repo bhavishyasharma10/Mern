@@ -29,15 +29,18 @@ export const categories = [
     id: 1,
     img: "https://drive.google.com/uc?export=view&id=1IE8VadKn18KBwlhvQg4pSv697lDPFvgO",
     title: "CLUTCH BAGS",
+    cat: "women",
   },
   {
     id: 2,
     img: "https://drive.google.com/uc?export=view&id=1ICKdBOEee6rwQXzlaprqWciN-IcxI-JD",
     title: "EARRINGS",
+    cat: "women",
   },
   {
     id: 3,
     img: "https://drive.google.com/uc?export=view&id=1IWwq5a5B6xMrxwySD-tNfB8GNNwmk8eR",
+    cat: "men",
 
     title: "LONG JACKETS",
   },
